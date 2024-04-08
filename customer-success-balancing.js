@@ -17,7 +17,7 @@ function customerSuccessBalancing(
 ) {
 	if (customerSuccessAway.length > customerSuccess.length / 2) {
 		throw new Error(
-			'The number of customers success is lower than necessary'
+			"The number of customers success is lower than necessary"
 		);
 	}
 
@@ -25,14 +25,14 @@ function customerSuccessBalancing(
 		customers,
 		customersQuantityLimit,
 		customerScoreLimit,
-		'customers'
+		"customers"
 	);
 
 	validateParameterLimits(
 		customerSuccess,
 		customersSuccessQuantityLimit,
 		customerSuccessScoreLimit,
-		'customers success'
+		"customers success"
 	);
 
 	let allowedCS = [];
@@ -86,7 +86,7 @@ function validateParameterLimits(
 	return entityParameter;
 }
 
-test('Scenario 1', () => {
+test("Scenario 1", () => {
 	const css = [
 		{ id: 1, score: 60 },
 		{ id: 2, score: 20 },
@@ -125,7 +125,7 @@ function arraySeq(count, startAt) {
 	return Array.apply(0, Array(count)).map((it, index) => index + startAt);
 }
 
-test('Scenario 2', () => {
+test("Scenario 2", () => {
 	const css = mapEntities([11, 21, 31, 3, 4, 5]);
 	const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
 	const csAway = [];
@@ -133,7 +133,7 @@ test('Scenario 2', () => {
 	expect(customerSuccessBalancing(css, customers, csAway)).toEqual(0);
 });
 
-test('Scenario 3', () => {
+test("Scenario 3", () => {
 	const testTimeoutInMs = 100;
 	const testStartTime = new Date().getTime();
 
@@ -148,7 +148,7 @@ test('Scenario 3', () => {
 	}
 });
 
-test('Scenario 4', () => {
+test("Scenario 4", () => {
 	const css = mapEntities([1, 2, 3, 4, 5, 6]);
 	const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
 	const csAway = [];
@@ -156,7 +156,7 @@ test('Scenario 4', () => {
 	expect(customerSuccessBalancing(css, customers, csAway)).toEqual(0);
 });
 
-test('Scenario 5', () => {
+test("Scenario 5", () => {
 	const css = mapEntities([100, 2, 3, 6, 4, 5]);
 	const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
 	const csAway = [];
@@ -164,7 +164,7 @@ test('Scenario 5', () => {
 	expect(customerSuccessBalancing(css, customers, csAway)).toEqual(1);
 });
 
-test('Scenario 6', () => {
+test("Scenario 6", () => {
 	const css = mapEntities([100, 99, 88, 3, 4, 5]);
 	const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
 	const csAway = [1, 3, 2];
@@ -172,7 +172,7 @@ test('Scenario 6', () => {
 	expect(customerSuccessBalancing(css, customers, csAway)).toEqual(0);
 });
 
-test('Scenario 7', () => {
+test("Scenario 7", () => {
 	const css = mapEntities([100, 99, 88, 3, 4, 5]);
 	const customers = mapEntities([10, 10, 10, 20, 20, 30, 30, 30, 20, 60]);
 	const csAway = [4, 5, 6];
@@ -180,7 +180,7 @@ test('Scenario 7', () => {
 	expect(customerSuccessBalancing(css, customers, csAway)).toEqual(3);
 });
 
-test('Scenario 8', () => {
+test("Scenario 8", () => {
 	const css = mapEntities([60, 40, 95, 75]);
 	const customers = mapEntities([90, 70, 20, 40, 60, 10]);
 	const csAway = [2, 4];
@@ -199,8 +199,8 @@ function generateSequentialArray(size) {
 	return result;
 }
 
-describe('Error tests', () => {
-	test('Scenario 9', () => {
+describe("Error tests", () => {
+	test("Scenario 9", () => {
 		const css = mapEntities(arraySeq(1000, 1));
 		const customers = mapEntities([90, 70]);
 		const csAway = [2, 4];
@@ -214,7 +214,7 @@ describe('Error tests', () => {
 		);
 	});
 
-	test('Scenario 10', () => {
+	test("Scenario 10", () => {
 		const css = mapEntities([60, 40, 95, 75]);
 		const customers = generateSequentialArray(1000000);
 		const csAway = [];
@@ -228,7 +228,7 @@ describe('Error tests', () => {
 		);
 	});
 
-	test('Scenario 11', () => {
+	test("Scenario 11", () => {
 		const css = mapEntities(arraySeq(999, 9002));
 		const customers = mapEntities([90, 70]);
 		const csAway = [];
@@ -242,7 +242,7 @@ describe('Error tests', () => {
 		);
 	});
 
-	test('Scenario 12', () => {
+	test("Scenario 12", () => {
 		const css = mapEntities([90, 70, 60, 20]);
 		const customers = mapEntities(arraySeq(100000, 1));
 		const csAway = [];
@@ -256,7 +256,7 @@ describe('Error tests', () => {
 		);
 	});
 
-	test('Scenario 13', () => {
+	test("Scenario 13", () => {
 		const css = mapEntities([10, 20, 30, 40, 50]);
 		const customers = mapEntities([5, 10, 15, 20, 25, 30, 35, 40, 45, 50]);
 		const csAway = [10, 30, 50];
@@ -266,7 +266,7 @@ describe('Error tests', () => {
 		};
 
 		expect(testFunction).toThrowError(
-			'The number of customers success is lower than necessary'
+			"The number of customers success is lower than necessary"
 		);
 	});
 });
