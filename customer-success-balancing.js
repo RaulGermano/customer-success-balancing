@@ -186,3 +186,87 @@ test('Scenario 8', () => {
 	const csAway = [2, 4];
 	expect(customerSuccessBalancing(css, customers, csAway)).toEqual(1);
 });
+
+/////////////////////////////////// Other tests ///////////////////////////////////
+
+function generateSequentialArray(size) {
+	const result = [];
+
+	for (let i = 1; i <= size; i++) {
+		const randomNumber = Math.floor(Math.random() * 9) + 1;
+		result.push({ id: i, score: randomNumber * 10 });
+	}
+	return result;
+}
+
+describe('Error tests', () => {
+	test('Scenario 9', () => {
+		const css = mapEntities(arraySeq(1000, 1));
+		const customers = mapEntities([90, 70]);
+		const csAway = [2, 4];
+
+		const testFunction = () => {
+			customerSuccessBalancing(css, customers, csAway);
+		};
+
+		expect(testFunction).toThrowError(
+			`The customers success parameter has exceeded the permitted quantity limit of ${csQuantityLimit}`
+		);
+	});
+
+	test('Scenario 10', () => {
+		const css = mapEntities([60, 40, 95, 75]);
+		const customers = generateSequentialArray(1000000);
+		const csAway = [];
+
+		const testFunction = () => {
+			customerSuccessBalancing(css, customers, csAway);
+		};
+
+		expect(testFunction).toThrowError(
+			`The customers parameter has exceeded the permitted quantity limit of ${consumersQuantityLimit}`
+		);
+	});
+
+	test('Scenario 11', () => {
+		const css = mapEntities(arraySeq(999, 9002));
+		const customers = mapEntities([90, 70]);
+		const csAway = [];
+
+		const testFunction = () => {
+			customerSuccessBalancing(css, customers, csAway);
+		};
+
+		expect(testFunction).toThrowError(
+			`The customers success parameter has exceeded the permitted score limit of ${csScoreLimit}`
+		);
+	});
+
+	test('Scenario 12', () => {
+		const css = mapEntities([90, 70, 60, 20]);
+		const customers = mapEntities(arraySeq(100000, 1));
+		const csAway = [];
+
+		const testFunction = () => {
+			customerSuccessBalancing(css, customers, csAway);
+		};
+
+		expect(testFunction).toThrowError(
+			`The customers parameter has exceeded the permitted score limit of ${consumersScoreLimit}`
+		);
+	});
+
+	test('Scenario 13', () => {
+		const css = mapEntities([10, 20, 30, 40, 50]);
+		const customers = mapEntities([5, 10, 15, 20, 25, 30, 35, 40, 45, 50]);
+		const csAway = [10, 30, 50];
+
+		const testFunction = () => {
+			customerSuccessBalancing(css, customers, csAway);
+		};
+
+		expect(testFunction).toThrowError(
+			'The number of customers success is lower than necessary'
+		);
+	});
+});
