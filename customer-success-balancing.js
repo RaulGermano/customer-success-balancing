@@ -5,10 +5,10 @@
  * @param {array} customerSuccessAway
  */
 
-const csQuantityLimit = 1000;
-const csScoreLimit = 10000;
-const consumersQuantityLimit = 1000000;
-const consumersScoreLimit = 100000;
+const customersSuccessQuantityLimit = 1000;
+const customerSuccessScoreLimit = 10000;
+const customersQuantityLimit = 1000000;
+const customerScoreLimit = 100000;
 
 function customerSuccessBalancing(
 	customerSuccess,
@@ -23,39 +23,39 @@ function customerSuccessBalancing(
 
 	validateParameterLimits(
 		customers,
-		consumersQuantityLimit,
-		consumersScoreLimit,
+		customersQuantityLimit,
+		customerScoreLimit,
 		'customers'
 	);
 
 	validateParameterLimits(
 		customerSuccess,
-		csQuantityLimit,
-		csScoreLimit,
+		customersSuccessQuantityLimit,
+		customerSuccessScoreLimit,
 		'customers success'
 	);
 
 	let allowedCS = [];
 	for (const cs of customerSuccess) {
 		if (!customerSuccessAway.includes(cs.id)) {
-			allowedCS.push({ ...cs, action: 0 });
+			allowedCS.push({ ...cs, actions: 0 });
 		}
 	}
 	const processedCustomerSuccess = allowedCS.sort(
 		(current, next) => current.score - next.score
 	);
 
-	let maxAction = 0;
+	let maxActions = 0;
 	let cssTopRanked = [];
 	for (const customer of customers) {
 		for (const cs of processedCustomerSuccess) {
 			if (customer.score <= cs.score) {
-				cs.action++;
+				cs.actions++;
 
-				if (cs.action > maxAction) {
+				if (cs.actions > maxActions) {
 					cssTopRanked = [cs];
-					maxAction = cs.action;
-				} else if (cs.action === maxAction) {
+					maxActions = cs.actions;
+				} else if (cs.actions === maxActions) {
 					cssTopRanked.push(cs);
 				}
 
@@ -210,7 +210,7 @@ describe('Error tests', () => {
 		};
 
 		expect(testFunction).toThrowError(
-			`The customers success parameter has exceeded the permitted quantity limit of ${csQuantityLimit}`
+			`The customers success parameter has exceeded the permitted quantity limit of ${customersSuccessQuantityLimit}`
 		);
 	});
 
@@ -224,7 +224,7 @@ describe('Error tests', () => {
 		};
 
 		expect(testFunction).toThrowError(
-			`The customers parameter has exceeded the permitted quantity limit of ${consumersQuantityLimit}`
+			`The customers parameter has exceeded the permitted quantity limit of ${customersQuantityLimit}`
 		);
 	});
 
@@ -238,7 +238,7 @@ describe('Error tests', () => {
 		};
 
 		expect(testFunction).toThrowError(
-			`The customers success parameter has exceeded the permitted score limit of ${csScoreLimit}`
+			`The customers success parameter has exceeded the permitted score limit of ${customerSuccessScoreLimit}`
 		);
 	});
 
@@ -252,7 +252,7 @@ describe('Error tests', () => {
 		};
 
 		expect(testFunction).toThrowError(
-			`The customers parameter has exceeded the permitted score limit of ${consumersScoreLimit}`
+			`The customers parameter has exceeded the permitted score limit of ${customerScoreLimit}`
 		);
 	});
 
